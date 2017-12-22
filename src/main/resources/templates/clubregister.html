@@ -1,0 +1,227 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:id="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head lang="en" th:replace="fragment :: header">
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script type="text/javascript">
+    function phonenumber()
+    {
+       var phoneno = /^\d{10}$/;
+       if(inputtxt.value.match(phoneno))
+        {
+           return true;
+        }
+       else
+        {
+           alert("Not a valid Phone Number");
+           return false;
+        }
+    }
+    </script>
+
+    <script>
+    function isUrlValid()
+     {
+        var website=/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
+        if(webadd.value.match(website))
+        {
+           return true;
+        }
+        else
+        {
+           alert("enter the valid website adddress");
+        }
+     }
+    </script>
+
+    <script>
+    function zipcode()
+     {
+        var zip = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
+        if((zipco.value.match(zip)))
+        {
+           return true;
+        }
+        else
+        {
+           alert("Enter the valid Pincode");
+           return false;
+        }
+     }
+    </script>
+
+    <script type="text/javascript">
+    function checkEmail()
+     {
+        var email = document.getElementById('txtEmail');
+        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (!filter.test(email.value))
+        {
+            alert('Please provide a valid email address');
+            email.focus;
+            return false;
+        }
+     }
+    </script>
+
+    <script th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function()
+     {
+        $('#categoryName').change(function ()
+         {
+            var data = "";
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8086/clubs/categories/subtypes?type=" + $(this).val(),
+                async: false,
+                success: function (response)
+                {
+                    data = response;
+                    console.log('data length - ' + data.length);
+                    $('#categoryId').empty();
+                    var option = new Option("", 0);
+                    $('#categoryId').append($(option));
+                    for (i = 0; i < data.length; i++)
+                     {
+                        console.log('id is ' + data[i].id + ' subtype - ' + data[i].subType);
+                        option = new Option(data[i].subType, data[i].id);
+                        $('#categoryId').append($(option));
+                    }
+
+                    return response;
+                },
+                error: function ()
+                {
+                    alert('error occured')
+                }
+            });
+         });
+     });
+    /*]]>*/
+    </script>
+</head>
+
+<body>
+<form action="/clubregister" th:object="${clubs}" method="post" >
+    <fieldset style="width:500px" >
+        <legend><h2><b>Fill the Club Details</b></h2></legend>
+        <table style="border: hidden">
+            <tr>
+                <td>ClubName:</td>
+                <td><input type="text" th:field="*{name}" size="32" placeholder="Enter the Club Name"
+                           th:readonly="${viewonly}" id="clubname" required/></td>
+            </tr>
+            <tr>
+
+                <td>Category:</td>
+                <td>
+                    <select th:field="*{categoryName}" th:disabled="${viewonly}">
+                        <option th:value="NULL">Select a category</option>
+                        <option th:each="category: ${categoryName}" th:value="${category}"
+                                th:text="${category}"></option>
+                    </select>
+                    <select th:field="*{categoryId}" th:disabled="${viewonly}">
+                        <option th:value="NULL">Select a subtype</option>
+                        <option th:each="category1: ${categoryId}" th:value="${category1.getId()}"
+                                th:text="${category1.getSubType()}"></option>
+                    </select>
+
+                </td>
+            </tr>
+            <tr>
+                <td>AddressLine1:</td>
+                <td><input type="text" th:field="*{addressLine1}" size="32"
+                           th:readonly="${viewonly}" required/></td>
+            </tr>
+            <tr>
+                <td>AddressLine2:</td>
+                <td><input type="text" th:field="*{addressLine2}" size="32"
+                           th:readonly="${viewonly}"/></td>
+            </tr>
+            <tr>
+                <td>AddressLine3:</td>
+                <td><input type="text" th:field="*{addressLine3}" size="32"
+                           th:readonly="${viewonly}"/></td>
+            </tr>
+            <tr>
+                <td>Locality:</td>
+                <td><input type="text" th:field="*{locality}" size="32" placeholder="Enter the Location"
+                           th:readonly="${viewonly}" required/></td>
+            </tr>
+            <tr>
+                <td>City:</td>
+                <td><input type="text" th:field="*{city}" placeholder="Enter the City" size="32" required
+                           th:readonly="${viewonly}"/></td>
+            </tr>
+            <tr>
+                <td>State:</td>
+                <td>
+                    <select th:field="*{stateId}" th:disabled="${viewonly}">
+                        <option th:each="state: ${stateId}" th:value="${state.getId()}"
+                                th:text="${state.getName()}">Telangana
+                        </option>
+                        <option th:each="state: ${stateId}" th:value="${state.getId()}"
+                                th:text="${state.getName()}">Andhra Pradesh
+                        </option>
+                        <option th:each="state: ${stateId}" th:value="${state.getId()}"
+                                th:text="${state.getName()}">Karnataka
+                        </option>
+                        <option th:each="state: ${stateId}" th:value="${state.getId()}"
+                                th:text="${state.getName()}">Kerala
+                        </option>
+                        <option th:each="state: ${stateId}" th:value="${state.getId()}"
+                                th:text="${state.getName()}">Madhya Pradesh
+                        </option>
+                        <option th:each="state: ${stateId}" th:value="${state.getId()}"
+                                th:text="${state.getName()}">Uttar Pradesh
+                        </option>
+                        <option th:each="state: ${stateId}" th:value="${state.getId()}"
+                                th:text="${state.getName()}">Maharashtra
+                        </option>
+                        <option th:each="state: ${stateId}" th:value="${state.getId()}"
+                                th:text="${state.getName()}">Tamil Nadu
+                        </option>
+                        <option th:each="state: ${stateId}" th:value="${state.getId()}"
+                                th:text="${state.getName()}">Orissa
+                        </option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td>Pincode:</td>
+                <td><input type="text" size="32" id="zipco" placeholder="Enter the Valid Pincode" th:field="*{pincode}"
+                           maxlength="8" required th:readonly="${viewonly}"/></td>
+            </tr>
+            <tr>
+                <td>Primary Contact Number:</td>
+                <td><input type="text" size="32" placeholder="Enter the Valid Mobile number" minlength="10"
+                           maxlength="10" th:field="*{primaryContactNo}" id="inputtxt" required th:readonly="${viewonly}"/></td>
+            </tr>
+            <tr>
+                <td>Primary Email Address:</td>
+                <td><input type="text" size="32" placeholder="example@domain.com" th:field="*{primaryEmailAddress}"
+                           id="txtEmail" required th:readonly="${viewonly}"/></td>
+            </tr>
+            <tr>
+                <td>Website Address:</td>
+                <td><input type="text" size="32" id="webadd" th:field="*{websiteAddress}"
+                           placeholder="Enter the Valid Website Address" th:readonly="${viewonly}"/></td>
+            </tr>
+
+            <tr>
+                <td>Description:</td>
+                <td><textarea rows="3" cols="33" type="text" th:field="*{description}"
+                              th:readonly="${viewonly}"/></textarea></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="submit"
+                           onclick="  zipcode(); phonenumber(); checkEmail(); isUrlValid();"
+                           th:hidden="${viewonly}"/></td>
+                <td><input type="reset" name="cancel" value="cancel" th:hidden="${viewonly}"/></td>
+            </tr>
+        </table>
+    </fieldset>
+</form>
+<div lang="en" th:replace="fragment :: footer"></div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:id="http://www.w3.org/1999/xhtml">
+  <form action="/getotp" method="post">
+    <head>
+        <title>Getting Started: Serving Web Content</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <script type="text/javascript">
+        function phonenumber()
+        {
+          var phoneno = /^\d{10}$/;
+          if(inputtxt.value.match(phoneno))
+          {
+            return true;
+          }
+          else
+          {
+            alert("Not a valid Phone Number");
+            return false;
+          }
+        }
+        </script>
+    </head>
+     <body>
+    <b> Enter mobile number</b>: <input type="tel" name="mobileNo" maxlength="10" minlength="10" value="" id="inputtxt"/>
+    <p><input type="submit" onclick="return phonenumber()" value="OK"/></p>
+    <p><input type="reset" value="Cancel"/></p>
+    </body>
+</form>
+</html>

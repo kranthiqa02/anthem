@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:id="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:fragment="header">
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script type="text/javascript" th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js}"></script>
+    <p>This is header</p>
+</head>
+
+<body>
+  <th:block layout:fragment="script"></th:block>
+  <p th:fragment="footer">This is footer</p>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:id="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script type="text/javascript">
+    function Validate()
+    {
+       if(allFirst(firstName))
+       {
+         if(allLast(lastName))
+         {
+           if(checkEmail())
+           {
+             var password = document.getElementById("password").value;
+             var confirmPassword = document.getElementById("confirmPassword").value;
+               if(password != confirmPassword)
+               {
+                 alert("Passwords do not match.");
+                 return false;
+               }
+               return true;
+           }
+           else
+           {
+            return false;
+           }
+         }
+       }
+    }
+    </script>
+
+    <script type="text/javascript">
+    function checkEmail()
+     {
+        var email = document.getElementById('emailAddress');
+        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if(!filter.test(email.value))
+        {
+            alert('Please provide a valid email address');
+            email.focus;
+            return false;
+        }
+        return true;
+     }
+    </script>
+    <script>
+    function allFirst()
+      {
+      var first=document.getElementById('firstName');
+      var letters = /^[A-Za-z]+$/;
+      if(first.value.match(letters))
+        {
+          return true;
+        }
+        else
+        {
+           alert('Username must have alphabet characters only');
+           return false;
+        }
+      }
+    </script>
+
+    <script>
+    function allLast()
+      {
+      var last=document.getElementById('lastName');
+      var letters = /^[A-Za-z]+$/;
+      if(last.value.match(letters))
+        {
+          return true;
+        }
+        else
+        {
+           alert('Username must have alphabet characters only');
+           return false;
+        }
+      }
+    </script>
+</head>
+<body>
+<form action="/register" th:object="${login}" method="post">
+    <legend><b>Please Fill the Details</b></legend>
+    <p><input type="hidden" name="id" id="id" th:field="*{id}"/></p>
+    <p><b>First Name</b>: <input type="text" name="firstName" id="firstName" placeholder="Enter the First Name"
+                                 width="48" height="48" size="34" /></p>
+    <p><b>Last Name</b>: <input type="text" name="lastName" placeholder="Enter the Last Name" size="35" id="lastName"
+                                th:field="*{lastName}" /></p>
+    <p><b>Email Address</b>: <input type="email" size="31" id="emailAddress" name="emailAddress"
+                                    placeholder="example@domain.com" th:field="*{emailAddress}"/></p>
+    <p><b>Password</b>:<input type="password" id="password" placeholder="Enter the Password" name="password"
+                              size="36"/></p>
+    <p><b>Confirm Password</b>: <input type="password" name="confirmPassword" id="confirmPassword"
+                                       size="27" placeholder=" Enter the Confirm Password"/></p>
+    <input type="submit" value="Submit" onsubmit="return Validate()" />
+    <input type="reset" value="Clear"/>
+</form>
+</body>
+</html>

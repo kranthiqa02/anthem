@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:id="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head lang="en" th:replace="fragment :: header">
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+   <table style="width:50%" BORDER="1">
+      <thead>
+         <tr>
+             <th>Firstname</th>
+             <th>Lastname</th>
+             <th>Emailaddress</th>
+             <th>Mobile No</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr th:each="login : ${login}">
+             <td th:text="${login.getFirstName()}" >&nbsp;</td>
+             <td th:text="${login.getLastName()}">&nbsp;</td>
+             <td th:text="${login.getEmailAddress()}">&nbsp;</td>
+             <td th:text="${login.getMobileNo()}">&nbsp;</td>
+         </tr>
+      </tbody>
+   </table>
+<div lang="en" th:replace="fragment :: footer"></div>
+</body>
+</html>

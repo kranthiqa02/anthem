@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:id="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+ <form  action="/validate" method="post">
+    <input type="hidden" name="mobileNo" th:value="${mobileNo}"/>
+     <b>Enter OTP Number</b>: <input type="tel" name="otpNum" maxlength="5"
+                                  id="otpNum" placeholder="Enter One Time Password"/>
+     <div><font color="red"><label th:text="${error}"/></font></div>
+     <p><input type="submit" value="OK" /></p>
+ </form>
+</body>
+</html>
